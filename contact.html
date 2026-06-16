@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact | Greyhound AI</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:Arial, sans-serif;
+    }
+
+    body{
+      background:#020814;
+      color:white;
+      overflow-x:hidden;
+    }
+
+    /* BACKGROUND */
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:
+        linear-gradient(rgba(0,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0,255,255,0.04) 1px, transparent 1px);
+      background-size:45px 45px;
+      z-index:-2;
+    }
+
+    body::after{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:
+        radial-gradient(circle at top,
+        rgba(0,255,200,0.10),
+        transparent 40%);
+      z-index:-1;
+    }
+
+    /* HEADER */
+    .hero{
+      padding:100px 8%;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .container{
+      width:100%;
+      max-width:1100px;
+    }
+
+    .badge{
+      display:inline-block;
+      padding:10px 20px;
+      border-radius:999px;
+      border:1px solid rgba(0,255,200,0.25);
+      background:rgba(0,255,200,0.06);
+      color:#6fffe5;
+      letter-spacing:2px;
+      font-size:13px;
+      margin-bottom:30px;
+    }
+
+    h1{
+      font-size:clamp(2.8rem, 6vw, 5rem);
+      margin-bottom:20px;
+      line-height:1.1;
+    }
+
+    h1 span{
+      color:#00ffd5;
+      text-shadow:0 0 20px rgba(0,255,213,0.4);
+    }
+
+    p{
+      color:#bcd6e6;
+      line-height:1.9;
+      max-width:800px;
+      margin-bottom:50px;
+      font-size:1.05rem;
+    }
+
+    /* CONTACT GRID */
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(250px,1fr));
+      gap:25px;
+      margin-top:40px;
+    }
+
+    .card{
+      background:rgba(10,20,35,0.85);
+      border:1px solid rgba(0,255,255,0.12);
+      border-radius:22px;
+      padding:30px;
+      transition:0.3s;
+      position:relative;
+      overflow:hidden;
+    }
+
+    .card::before{
+      content:"";
+      position:absolute;
+      width:200px;
+      height:200px;
+      background:radial-gradient(circle, rgba(0,255,200,0.12), transparent 70%);
+      top:-80px;
+      right:-80px;
+    }
+
+    .card:hover{
+      transform:translateY(-8px);
+      border-color:#00ffd5;
+      box-shadow:0 0 25px rgba(0,255,200,0.15);
+    }
+
+    .card h3{
+      color:#00ffd5;
+      margin-bottom:15px;
+      font-size:1.2rem;
+      letter-spacing:1px;
+    }
+
+    .card p{
+      margin:0;
+      color:#c9ddea;
+      font-size:0.98rem;
+    }
+
+    /* FORM */
+    .form-box{
+      margin-top:60px;
+      background:rgba(8,18,30,0.9);
+      border:1px solid rgba(0,255,255,0.12);
+      border-radius:25px;
+      padding:40px;
+    }
+
+    .form-box h2{
+      color:#00ffd5;
+      margin-bottom:25px;
+    }
+
+    input, textarea{
+      width:100%;
+      padding:15px;
+      margin-bottom:15px;
+      border-radius:12px;
+      border:1px solid rgba(0,255,255,0.2);
+      background:#071423;
+      color:white;
+      outline:none;
+    }
+
+    textarea{
+      min-height:120px;
+      resize:none;
+    }
+
+    button{
+      padding:14px 28px;
+      border:none;
+      border-radius:12px;
+      background:linear-gradient(135deg,#00ffd5,#0066ff);
+      color:white;
+      font-weight:bold;
+      cursor:pointer;
+      transition:0.3s;
+      box-shadow:0 0 20px rgba(0,255,200,0.2);
+    }
+
+    button:hover{
+      transform:scale(1.05);
+    }
+
+    footer{
+      text-align:center;
+      padding:40px;
+      color:#8da8bc;
+      border-top:1px solid rgba(255,255,255,0.06);
+      margin-top:80px;
+    }
+    
+    .menu {
+  display: flex;
+  width: 100%;
+  background: rgba(255, 255, 255, 0);
+}
+
+.menu-btn {
+  flex: 1 1 min(160px, 25%);
+  padding: clamp(0.6rem, 2vw, 1rem);
+  font-size: clamp(0.85rem, 2vw, 1rem);
+  border: none;
+  background: rgba(255, 255, 255, 0);
+  color: white;
+  text-align: center;
+  white-space: nowrap;
+}
+
+
+.neo-footer {
+  position: relative;
+  background: #050b18;
+  color: #cfe9ff;
+  padding: 70px 8% 30px;
+  overflow: hidden;
+  border-top: 1px solid rgba(0,255,200,0.12);
+}
+
+/* GLOW EFFECT */
+.footer-glow {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(circle, rgba(0,255,200,0.12), transparent 70%);
+  top: -200px;
+  left: 50%;
+  transform: translateX(-50%);
+  filter: blur(40px);
+  opacity: 0.6;
+}
+
+/* MAIN GRID */
+.footer-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 50px;
+  position: relative;
+  z-index: 2;
+}
+
+.footer-left h2 {
+  font-size: 2rem;
+  color: #00ffd5;
+  margin-bottom: 15px;
+  text-shadow: 0 0 15px rgba(0,255,200,0.3);
+}
+
+.footer-left p {
+  line-height: 1.8;
+  color: #b9d6ea;
+  margin-bottom: 20px;
+}
+
+.contact span {
+  display: block;
+  margin-bottom: 8px;
+  color: #9fefff;
+}
+
+/* LINKS */
+.footer-links h3,
+.footer-social h3 {
+  color: #00ffd5;
+  margin-bottom: 15px;
+}
+
+.footer-links a,
+.footer-social a {
+  display: block;
+  color: #cfe9ff;
+  text-decoration: none;
+  margin-bottom: 10px;
+  transition: 0.3s;
+}
+
+.footer-links a:hover,
+.footer-social a:hover {
+  color: #00ffd5;
+  transform: translateX(5px);
+}
+
+/* BOTTOM */
+.footer-bottom {
+  margin-top: 40px;
+  text-align: center;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  color: #7fa9c7;
+  font-size: 0.9rem;
+}
+
+/* RESPONSIVE */
+@media (max-width: 800px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .footer-links a,
+  .footer-social a {
+    display: inline-block;
+    margin: 6px 10px;
+  }
+}
+  </style>
+</head>
+
+<body>
+   <nav class="menu">
+  <a href="/crack.html">
+    <button  class="menu-btn">Crack</button>
+  </a>
+  <a href="/contact.html">
+    <button  class="menu-btn">Contact</button>
+  </a>
+  <a href="/about.html">
+    <button  class="menu-btn">About</button>
+  </a>
+  </nav>  
+  <section class="hero">
+
+    <div class="container">
+
+      <div class="badge">
+        GET IN TOUCH
+      </div>
+
+      <h1>
+        Contact <span>Greyhound AI System</span>
+      </h1>
+
+      <p>
+        If you have questions about predictions, system access, technical support,
+        or collaboration opportunities, feel free to contact the developer directly.
+        We respond as quickly as possible.
+      </p>
+
+      <div class="grid">
+
+        <div class="card">
+          <h3>Phone</h3>
+          <p>+251 989463751</p>
+        </div>
+
+        <div class="card">
+          <h3>Email</h3>
+          <p>tinsu732@gmail.com</p>
+        </div>
+
+
+
+        <div class="card">
+          <h3>Social Media</h3>
+         <a href="https://www.facebook.com/profile.php?id=61590114923971"><p>Facebook<br/></p></a>
+         
+         <a href="https://www.tiktok.com/ecrackai">
+         <p>Tiktok</p>
+         </a>
+         
+                <a href="https://www.instagram.com/ecrack_ai?igsh=MXRuejU5ZDFmNDJ5cA==">
+         <p>instagram</p>
+         </a>
+         
+                          <a href="https://x.com/EcrackAI">
+         <p>Twiter</p>
+         </a>
+        </div>
+        
+
+
+      </div>
+
+      <div hidden class="form-box">
+
+        <h2>Send a Message</h2>
+
+        <input type="text" placeholder="Your Name" />
+        <input type="email" placeholder="Your Email" />
+        <textarea placeholder="Your Message"></textarea>
+
+        <button>Send Message</button>
+
+      </div>
+
+      <footer>
+        © 2026 Greyhound AI Prediction System • Contact Support • Ethical AI Betting Analytics
+      </footer>
+
+    </div>
+
+  </section>
+
+    <footer class="neo-footer">
+
+  <div class="footer-glow"></div>
+
+  <div class="footer-container">
+
+    <div class="footer-left">
+      <h2>Greyhound AI</h2>
+      <p>
+        Advanced prediction system for Greyhound racing outcomes using AI,
+        mathematics, and behavioral pattern analysis.
+      </p>
+
+      <div class="contact">
+        <span>📞 +251 989463751</span>
+        <span>📧 andinetatx@gmail.com</span>
+      </div>
+    </div>
+
+    <div class="footer-links">
+      <h3>Quick Links</h3>
+      <a href="/index.html">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/crack.html">Predictions</a>
+      <a href="/contact.html">Contact</a>
+    </div>
+
+    <div class="footer-social">
+      <h3>Social</h3>
+      <a href="https://www.facebook.com/profile.php?id=61590114923971">Facebook<label>
+        
+        <svg style="background-color: white; color: dodgerblue;" xmlns="http://www.w3.org/2000/svg" width="16" height="17" fill="currentColor" class="bi bi-facebook" viewBox="0 0 16 16">
+  <path d="M16 8.049c0-4.446-3.582-8.05-8-8.05C3.58 0-.002 3.603-.002 8.05c0 4.017 2.926 7.347 6.75 7.951v-5.625h-2.03V8.05H6.75V6.275c0-2.017 1.195-3.131 3.022-3.131.876 0 1.791.157 1.791.157v1.98h-1.009c-.993 0-1.303.621-1.303 1.258v1.51h2.218l-.354 2.326H9.25V16c3.824-.604 6.75-3.934 6.75-7.951"/>
+</svg>
+      </label></a>
+      <a href="https://www.instagram.com/ecrack_ai?igsh=MXRuejU5ZDFmNDJ5cA==">Instagram<label>
+        
+<svg style="background-color: white; color: palevioletred;" xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-instagram" viewBox="0 0 16 16">
+  <path d="M8 0C5.829 0 5.556.01 4.703.048 3.85.088 3.269.222 2.76.42a3.9 3.9 0 0 0-1.417.923A3.9 3.9 0 0 0 .42 2.76C.222 3.268.087 3.85.048 4.7.01 5.555 0 5.827 0 8.001c0 2.172.01 2.444.048 3.297.04.852.174 1.433.372 1.942.205.526.478.972.923 1.417.444.445.89.719 1.416.923.51.198 1.09.333 1.942.372C5.555 15.99 5.827 16 8 16s2.444-.01 3.298-.048c.851-.04 1.434-.174 1.943-.372a3.9 3.9 0 0 0 1.416-.923c.445-.445.718-.891.923-1.417.197-.509.332-1.09.372-1.942C15.99 10.445 16 10.173 16 8s-.01-2.445-.048-3.299c-.04-.851-.175-1.433-.372-1.941a3.9 3.9 0 0 0-.923-1.417A3.9 3.9 0 0 0 13.24.42c-.51-.198-1.092-.333-1.943-.372C10.443.01 10.172 0 7.998 0zm-.717 1.442h.718c2.136 0 2.389.007 3.232.046.78.035 1.204.166 1.486.275.373.145.64.319.92.599s.453.546.598.92c.11.281.24.705.275 1.485.039.843.047 1.096.047 3.231s-.008 2.389-.047 3.232c-.035.78-.166 1.203-.275 1.485a2.5 2.5 0 0 1-.599.919c-.28.28-.546.453-.92.598-.28.11-.704.24-1.485.276-.843.038-1.096.047-3.232.047s-2.39-.009-3.233-.047c-.78-.036-1.203-.166-1.485-.276a2.5 2.5 0 0 1-.92-.598 2.5 2.5 0 0 1-.6-.92c-.109-.281-.24-.705-.275-1.485-.038-.843-.046-1.096-.046-3.233s.008-2.388.046-3.231c.036-.78.166-1.204.276-1.486.145-.373.319-.64.599-.92s.546-.453.92-.598c.282-.11.705-.24 1.485-.276.738-.034 1.024-.044 2.515-.045zm4.988 1.328a.96.96 0 1 0 0 1.92.96.96 0 0 0 0-1.92m-4.27 1.122a4.109 4.109 0 1 0 0 8.217 4.109 4.109 0 0 0 0-8.217m0 1.441a2.667 2.667 0 1 1 0 5.334 2.667 2.667 0 0 1 0-5.334"/>
+</svg>
+      </label></a>
+      
+      
+
+
+      <a href="https://x.com/EcrackAI">X (Twitter)<label>
+        <svg style="background-color: black; color: white;" xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-twitter-x" viewBox="0 0 16 16">
+  <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
+</svg>
+      </label></a>
+            <a href="https://www.tiktok.com/ecrackai">Tiktok<label>
+<svg style="background-color: black; color: white;" xmlns="http://www.w3.org/2000/svg" width="17" height="17" fill="currentColor" class="bi bi-tiktok" viewBox="0 0 16 16">
+  <path d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z"/>
+</svg>
+      </label></a>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    © 2026 Greyhound AI Prediction System • Built by Andinet • All Rights Reserved
+  </div>
+
+</footer>
+</body>
+</html>
